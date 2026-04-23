@@ -1,0 +1,49 @@
+package pages
+
+import (
+	"myapp/ui/layouts"
+)
+
+templ Preview() {
+	@layouts.BaseLayout() {
+		<div class="flex h-full w-full gap-6 p-6">
+			<!-- Left pane - Input Form -->
+			<div class="w-1/2 flex flex-col gap-4 h-full">
+				<div class="rounded-xl border bg-card text-card-foreground shadow-sm flex-1 flex flex-col p-6">
+					<div class="flex flex-col space-y-1.5 mb-4">
+						<h3 class="font-semibold leading-none tracking-tight">Template Configuration</h3>
+						<p class="text-sm text-muted-foreground">Upload your template and JSON data to render a preview.</p>
+					</div>
+					<form hx-post="/preview" hx-target="#preview-pane" hx-encoding="multipart/form-data" class="flex flex-col gap-4 flex-1">
+						<div class="flex flex-col gap-2">
+							<label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+								Template File (HTML/PDF)
+							</label>
+							<input type="file" name="template" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+						</div>
+						<div class="flex flex-col gap-2 flex-1">
+							<label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+								JSON Data
+							</label>
+							<textarea name="jsonData" required class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1 font-mono" placeholder='{"key": "value"}'></textarea>
+						</div>
+						<div class="mt-auto pt-4">
+							<button type="submit" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors">
+								Generate Preview
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Right pane - Preview Area -->
+			<div class="w-1/2 flex flex-col h-full">
+				<div class="rounded-xl border bg-card text-card-foreground shadow-sm flex-1 flex flex-col overflow-hidden relative">
+					<div id="preview-pane" class="w-full h-full bg-white text-black flex items-center justify-center text-muted-foreground overflow-auto">
+						Preview will appear here
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}
