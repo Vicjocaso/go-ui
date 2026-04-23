@@ -45,8 +45,13 @@ func main() {
 		handlePreviewRequest(w, r)
 	})
 
-	fmt.Println("Server is running on http://localhost:8090")
-	err := http.ListenAndServe(":8090", mux)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8090"
+	}
+
+	fmt.Printf("Server is running on http://localhost:%s\n", port)
+	err := http.ListenAndServe(":"+port, mux)
 	if err != nil {
 		panic(err)
 	}
